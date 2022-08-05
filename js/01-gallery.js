@@ -1,5 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
+
 const galleryRef = document.querySelector(".gallery");
 
 const markup = galleryItems
@@ -18,3 +19,28 @@ const markup = galleryItems
   .join("");
 
 galleryRef.insertAdjacentHTML("beforeend", markup);
+
+galleryRef.addEventListener("click", galleryClick);
+
+function galleryClick(e) {
+  e.preventDefault();
+  if (e.target.nodeName !== "IMG") {
+    return;
+  }
+  const currentImageSrc = e.target.dataset.source;
+  modal(currentImageSrc);
+}
+
+function modal(imgSrc) {
+  const openImage = basicLightbox.create(`<img src="${imgSrc}">`);
+  openImage.show();
+  const visible = openImage.visible();
+
+  if (visible) {
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Escape") {
+        openImage.close();
+      }
+    });
+  }
+}
