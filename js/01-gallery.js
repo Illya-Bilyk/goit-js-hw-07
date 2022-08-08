@@ -37,18 +37,13 @@ function modal(imgSrc) {
   const visible = openImage.visible();
 
   if (visible) {
-    document.addEventListener("keydown", function closeImageOnButton(e) {
-      console.log(e);
-      if (e.code === "Escape") {
-        openImage.close();
-        document.removeEventListener("keydown", closeImageOnButton);
-      }
-    });
+    document.addEventListener("keydown", closeImageOnButton);
+  }
+  function closeImageOnButton(e) {
+    console.log(e);
+    if (e.code === "Escape") {
+      openImage.close();
+      document.removeEventListener("keydown", closeImageOnButton);
+    }
   }
 }
-
-// function closeImageOnButton(keyCode) {
-//   if (keyCode.code === "Escape") {
-//     openImage.close();
-//   }
-// }
